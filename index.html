@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHANTI CRICKET STADIUM &amp; ACADEMY</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Teko:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5EE;--sf:#fff;--ink:#14241A;--mute:#5B6B60;--line:#D8E0D2;--pitch:#1E5B38;--ball:#B3261E;--ok:#1E7A46;--warn:#A85F00;--chip:#E6EDE0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A13;--sf:#17261D;--ink:#E8F0E8;--mute:#9DB0A2;--line:#2A3C30;--pitch:#25744A;--ball:#E5645A;--ok:#4CC380;--warn:#E8A33D;--chip:#223429}}
+:root[data-theme="dark"]{--bg:#0F1A13;--sf:#17261D;--ink:#E8F0E8;--mute:#9DB0A2;--line:#2A3C30;--pitch:#25744A;--ball:#E5645A;--ok:#4CC380;--warn:#E8A33D;--chip:#223429}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Noto Sans",system-ui,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:20px;margin:0}
+.sub{color:var(--mute);font-size:13px;margin:2px 0 14px}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px}
+nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:8px 14px;border-radius:20px;font:600 14px "Noto Sans",sans-serif;cursor:pointer}
+nav button[aria-current="true"]{background:var(--pitch);border-color:var(--pitch);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ball);outline-offset:2px}
+.card{background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.card h2{font-size:16px;margin:0 0 10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row small,.mute{color:var(--mute);font-size:13px}
+label{display:block;font-size:13px;color:var(--mute);margin:8px 0 3px}
+input,select{width:100%;padding:10px;font:400 16px "Noto Sans",sans-serif;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{border:0;background:var(--pitch);color:#fff;padding:11px 16px;border-radius:8px;font:600 15px "Noto Sans",sans-serif;cursor:pointer;margin-top:12px}
+.btn.alt{background:var(--chip);color:var(--ink)}
+.btn.red{background:var(--ball)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.board{background:var(--pitch);color:#fff;border-radius:12px;padding:18px 16px 16px;margin-bottom:12px;position:relative;overflow:hidden}
+.board::after{content:"";position:absolute;left:0;right:0;bottom:46px;border-top:2px solid rgba(255,255,255,.22)}
+.board .t{font-size:14px;opacity:.85}
+.board .big{font:600 76px/1 Teko,"Noto Sans",sans-serif;letter-spacing:1px;margin:2px 0}
+.board .meta{display:flex;gap:16px;font-size:14px;flex-wrap:wrap;opacity:.95}
+.balls{display:flex;gap:6px;margin-top:14px;min-height:30px;position:relative;z-index:1;flex-wrap:wrap}
+.balls span{min-width:30px;height:30px;border-radius:15px;background:rgba(255,255,255,.18);display:grid;place-items:center;font:600 14px sans-serif;padding:0 6px}
+.balls span.w{background:var(--ball)}
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pad button{padding:14px 0;border-radius:8px;border:1px solid var(--line);background:var(--sf);color:var(--ink);font:600 18px "Noto Sans",sans-serif;cursor:pointer}
+.pad button.f{border-color:var(--pitch);color:var(--pitch)}
+.pad button.x{border-color:var(--ball);color:var(--ball);font-size:15px}
+.pad button:disabled{opacity:.35}
+.badge{font-size:12px;font-weight:700;padding:2px 9px;border-radius:10px;background:var(--chip)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--ball)}
+.bar{height:6px;background:var(--chip);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stats div{background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:10px}
+.stats b{display:block;font-size:19px}
+.seg{display:flex;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:7px 12px;border-radius:8px;font:600 13px "Noto Sans",sans-serif;cursor:pointer}
+.seg button.on.p{background:var(--ok);border-color:var(--ok);color:#fff}
+.seg button.on.a{background:var(--ball);border-color:var(--ball);color:#fff}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:20px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+textarea{width:100%;padding:10px;font:400 16px "Noto Sans",system-ui,sans-serif;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:-6px 0 12px;font-size:13px;color:var(--mute)}
+.bar2 button{border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:6px 12px;border-radius:16px;font:600 13px "Noto Sans",system-ui,sans-serif;cursor:pointer}
+.board::after{display:none}
+.pl{margin-top:12px;border-top:2px solid rgba(255,255,255,.25);padding-top:8px;font-size:15px}
+.pl div{display:flex;justify-content:space-between;gap:8px;padding:2px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:9px 14px;border-radius:8px;font:600 14px "Noto Sans",sans-serif;cursor:pointer}
+.chips button.on{background:var(--pitch);border-color:var(--pitch);color:#fff}
+.pad.c3{grid-template-columns:repeat(3,1fr)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:10px}
+th{text-align:left;color:var(--mute);font-weight:600;border-bottom:1px solid var(--line);padding:6px 4px}
+td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td small{display:block;color:var(--mute)}
+th:not(:first-child),td:not(:first-child){text-align:right}
+details.card summary{cursor:pointer;list-style:none}
+details.card summary::-webkit-details-marker{display:none}
+details.card[open] summary{margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏏 SHANTI CRICKET STADIUM &amp; ACADEMY</h1>
+  <p class="sub">Matches, attendance &amp; fees — all in one place</p>
+  <div id="bar"></div>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast"></div>
+<script type="module">
+(async()=>{
+const V='10.14.1',U=[b=>`https://www.gstatic.com/firebasejs/${V}/firebase-${b}.js`,b=>`https://cdn.jsdelivr.net/npm/firebase@${V}/${b}/+esm`];
+const fail=e=>{window.FBERR=String(e&&e.message||e);window.dispatchEvent(new Event('fberror'))};
+let M,last;
+for(const u of U){try{M=await Promise.all(['app','auth','firestore'].map(b=>import(u(b))));break}catch(e){last=e}}
+if(!M){fail(last);return}
+try{
+const [{initializeApp},{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword,sendPasswordResetEmail},{getFirestore,doc,getDoc,setDoc,deleteDoc,onSnapshot,collection}]=M;
+const cfg={apiKey:"AIzaSyAXPwSyy4xEx0WvRhieEMRTJzJ1rtrc3ko",authDomain:"shanti-cricket.firebaseapp.com",projectId:"shanti-cricket",storageBucket:"shanti-cricket.firebasestorage.app",messagingSenderId:"10295363576",appId:"1:10295363576:web:56c4c5a8afdb01d64d380d"};
+const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app);
+const D=p=>doc(db,...p.split('/')),clean=o=>JSON.parse(JSON.stringify(o));
+window.FB={
+  onAuth:cb=>onAuthStateChanged(auth,cb),
+  login:(e,p)=>signInWithEmailAndPassword(auth,e,p),
+  logout:()=>signOut(auth),
+  signup:(e,p)=>createUserWithEmailAndPassword(auth,e,p),
+  reset:e=>sendPasswordResetEmail(auth,e),
+  async createUser(e,p){const a2=initializeApp(cfg,'sec'+Date.now()),au=getAuth(a2);const c=await createUserWithEmailAndPassword(au,e,p);await signOut(au);return c.user.uid},
+  async get(p){const x=await getDoc(D(p));return x.exists()?x.data():null},
+  set:(p,d,merge)=>setDoc(D(p),clean(d),{merge:!!merge}),
+  del:p=>deleteDoc(D(p)),
+  watchDoc:(p,cb,err)=>onSnapshot(D(p),x=>cb(x.exists()?x.data():null),err),
+  watchCol:(p,cb,err)=>onSnapshot(collection(db,...p.split('/')),x=>cb(x.docs.map(d=>({id:d.id,...d.data()}))),err)
+};
+window.dispatchEvent(new Event('fbready'));
+}catch(e){fail(e)}
+})();
+</script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN');
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const ago=n=>{const d=new Date();d.setDate(d.getDate()-n);return iso(d)};
+const fmt=s=>{const [y,m,d]=s.split('-');return d+'/'+m+'/'+y};
+const ADMIN='g42307@gmail.com';
+let AUTH=null,lrole='admin',lerr='',busy=false,authReady=false,fbFail=false,justLogin=false,unsubs=[];
+const isA=()=>!!AUTH&&AUTH.role==='admin';
+let _u=0;const uid=()=>{_u=Math.max(_u+1,Date.now()*1000);return _u};
+const toEmail=s=>{s=String(s).trim().toLowerCase().replace(/\s+/g,'');return s.includes('@')?s:s+'@shanti-academy.app'};
+let S={players:[],att:{},matches:[],live:null,users:[]},tab='live',attDate=iso(new Date());
+const HOW={bowled:'Bowled',caught:'Caught',lbw:'LBW',runout:'Run out',stumped:'Stumped',hw:'Hit wicket'};
+const ALLOW={n:Object.keys(HOW),wd:['runout','stumped'],nb:['runout'],bye:['runout'],lb:['runout']};
+const MODES=[['n','Normal'],['wd','Wide'],['nb','No ball'],['bye','Bye'],['lb','Leg bye']];
+const HINT={wd:'Wide: 1 run added automatically + runs completed',nb:'No ball: 1 run added automatically. Pick where the other runs came from.',bye:'Bye: runs go to extras, not charged to the bowler',lb:'Leg bye: runs go to extras, not charged to the bowler'};
+
+/* ---------- scoring engine ---------- */
+const legal=e=>e.t==='n'||e.t==='bye'||e.t==='lb';
+const tot=e=>(e.t==='wd'||e.t==='nb'?1:0)+e.r;
+const batR=e=>e.t==='n'||(e.t==='nb'&&!e.x)?e.r:0;
+const newInn=(team,bat,bowl)=>({team,bat,bowl,log:[],used:[],s:null,n:null,bw:null,done:false});
+function push(I,e){
+  e.pre={s:I.s,n:I.n,bw:I.bw,u:I.used.slice()};e.s=I.s;e.bw=I.bw;I.log.push(e);
+  const w=e.w;
+  if(w&&w.how==='runout'&&w.end){const sv=w.out===I.s?I.n:I.s;if(w.end==='s'){I.s=null;I.n=sv}else{I.n=null;I.s=sv}}
+  else{if(e.r%2){const t=I.s;I.s=I.n;I.n=t}
+    if(w){if(I.s===w.out)I.s=null;else I.n=null}}
+  if(legal(e)&&I.log.filter(legal).length%6===0){const t=I.s;I.s=I.n;I.n=t;I.bw=null}
+}
+function pickBat(I,id){if(I.s===null)I.s=id;else I.n=id;I.used.push(id)}
+function undoE(I){const e=I.log.pop();if(!e)return;I.s=e.pre.s;I.n=e.pre.n;I.bw=e.pre.bw;I.used=e.pre.u;I.done=false}
+function st(I){let r=0,w=0,b=0;I.log.forEach(e=>{r+=tot(e);if(e.w)w++;if(legal(e))b++});return{r,w,b}}
+function ended(L,i){const I=L.inn[i],s=st(I);return I.done||s.b>=L.overs*6||s.w>=I.bat.length-1||(i===1&&s.r>st(L.inn[0]).r)}
+function batOf(I,id){let r=0,b=0,f=0,s=0,out=null;I.log.forEach(e=>{if(e.s===id){const x=batR(e);r+=x;if(e.t!=='wd')b++;if(x===4)f++;if(x===6)s++}if(e.w&&e.w.out===id)out=e});return{r,b,f,s,out}}
+function bowlOf(I,id){let b=0,r=0,w=0,lc=0;const O={};I.log.forEach(e=>{const k=Math.floor(lc/6);if(e.bw===id){const c=batR(e)+(e.t==='wd'?1+e.r:e.t==='nb'?1:0),o=O[k]||(O[k]={b:0,r:0});if(legal(e)){b++;o.b++}r+=c;o.r+=c;if(e.w&&e.w.how!=='runout')w++}if(legal(e))lc++});let m=0;for(const k in O)if(O[k].b===6&&O[k].r===0)m++;return{b,r,w,m}}
+function result(a,b){const x=st(a),y=st(b);
+  if(y.r>x.r)return b.team+' won by '+(b.bat.length-1-y.w)+' wickets';
+  if(x.r>y.r)return a.team+' won by '+(x.r-y.r)+' runs';return 'Match tied'}
+/* ---------- data ---------- */
+function save(){if(!isA())return;if(S.live)FB.set('live/current',S.live);else FB.del('live/current')}
+function stopAll(){unsubs.forEach(f=>{try{f()}catch(e){}});unsubs=[];S={players:[],att:{},matches:[],live:null,users:[]}}
+function watch(){
+  const err=e=>toast('Data error: '+(e.code||e.message)),R=()=>{if(AUTH)render()};
+  unsubs.push(FB.watchCol('matches',a=>{S.matches=a.sort((x,y)=>(y.date||'').localeCompare(x.date||'')||(y.id-x.id));R()},err));
+  unsubs.push(FB.watchDoc('live/current',d=>{S.live=d;R()},err));
+  if(isA()){
+    unsubs.push(FB.watchCol('players',a=>{S.players=a.sort((x,y)=>x.id-y.id);R()},err));
+    unsubs.push(FB.watchCol('attendance',a=>{const m={};a.forEach(d=>Object.assign(m,d.days||{}));S.att=m;R()},err));
+    unsubs.push(FB.watchCol('users',a=>{S.users=a;R()},err));
+  }
+}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1800)}
+const paidOf=p=>p.pay.reduce((a,x)=>a+x.amt,0);
+function attPct(p){let t=0,c=0;for(const d in S.att){if(p.id in S.att[d]){t++;if(S.att[d][p.id])c++}}return t?Math.round(c*100/t):null}
+const ov=b=>Math.floor(b/6)+'.'+(b%6);
+const N0=()=>Object.fromEntries(S.players.map(p=>[p.id,p.name]));
+function career(id){const c={m:0,r:0,b:0,w:0,hs:0};S.matches.forEach(M=>{const I0=M.inn[0];if(I0.bat.includes(id)||I0.bowl.includes(id))c.m++;
+  M.inn.forEach(I=>{const x=batOf(I,id);c.r+=x.r;c.b+=x.b;c.hs=Math.max(c.hs,x.r);c.w+=bowlOf(I,id).w})});return c}
+
+/* ---------- scorecard ---------- */
+function outTxt(o,N){if(!o)return 'Not out';const h=o.w.how;return HOW[h]+(h==='runout'?'':' · '+N[o.bw])}
+function card(I,N){
+  const s=st(I),ex={wd:0,nb:0,bye:0,lb:0};
+  I.log.forEach(e=>{if(e.t==='wd')ex.wd+=1+e.r;else if(e.t==='nb'){ex.nb++;if(e.x)ex[e.x]+=e.r}else if(e.t!=='n')ex[e.t]+=e.r});
+  let run=0,wk=0;const fow=[];I.log.forEach(e=>{run+=tot(e);if(e.w){wk++;fow.push(wk+'-'+run+' ('+N[e.w.out]+')')}});
+  const bw=[...new Set(I.log.map(e=>e.bw))];
+  return `<div class="tw"><table><tr><th>Batter</th><th>R</th><th>B</th><th>4</th><th>6</th><th>SR</th></tr>
+  ${I.used.map(id=>{const x=batOf(I,id);return `<tr><td>${esc(N[id])}<small>${esc(outTxt(x.out,N))}</small></td><td><b>${x.r}</b></td><td>${x.b}</td><td>${x.f}</td><td>${x.s}</td><td>${x.b?(x.r*100/x.b).toFixed(1):'-'}</td></tr>`}).join('')}
+  <tr><td>Extras<small>Wd ${ex.wd} · Nb ${ex.nb} · B ${ex.bye} · Lb ${ex.lb}</small></td><td colspan="5"><b>${ex.wd+ex.nb+ex.bye+ex.lb}</b></td></tr>
+  <tr><td><b>Total</b><small>${ov(s.b)} overs</small></td><td colspan="5"><b>${s.r}/${s.w}</b></td></tr></table>
+  <table><tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>Eco</th></tr>
+  ${bw.map(id=>{const x=bowlOf(I,id);return `<tr><td>${esc(N[id])}</td><td>${ov(x.b)}</td><td>${x.m}</td><td>${x.r}</td><td><b>${x.w}</b></td><td>${x.b?(x.r*6/x.b).toFixed(2):'-'}</td></tr>`}).join('')}</table>
+  ${fow.length?`<p class="mute" style="margin:0">Fall of wickets: ${esc(fow.join(', '))}</p>`:''}</div>`;
+}
+
+/* ---------- login & roles ---------- */
+let lmode='login',lmsg='',signingUp=false;
+function vLogin(){
+  if(!authReady)return `<div class="card"><p class="mute" style="margin:0">${fbFail?'Could not load. Check your internet and refresh the page.'+(window.FBERR?'<br><small>Details: '+esc(window.FBERR)+'</small>':''):'Loading…'}</p></div>`;
+  const su=lrole==='user'&&lmode==='signup';
+  return `<div class="card"><h2>${su?'Create user account':'Login'}</h2>
+  <div class="chips"><button class="${lrole==='admin'?'on':''}" onclick="setRole('admin')">Admin login</button><button class="${lrole==='user'?'on':''}" onclick="setRole('user')">User login</button></div>
+  <p class="mute" style="margin:8px 0 0">${lrole==='admin'?'Admin can manage live matches, attendance, fees and players.':su?'Sign up once, then log in any time to view live matches, scorecards and records.':'Users can only view live matches, scorecards and match records.'}</p>
+  ${su?`<label for="sn">Your name</label><input id="sn" autocomplete="name">`:''}
+  <label for="lu">Login ID (email or mobile number)</label><input id="lu" autocomplete="username" autocapitalize="none">
+  <label for="lp">Password${su?' (min 6 characters)':''}</label><input id="lp" type="password" autocomplete="${su?'new-password':'current-password'}" ${su?'':`onkeydown="if(event.key==='Enter')doLogin()"`}>
+  ${su?`<label for="lp2">Confirm password</label><input id="lp2" type="password" autocomplete="new-password">`:''}
+  ${lmsg?`<p class="ok" style="margin:10px 0 0"><b>${esc(lmsg)}</b></p>`:''}
+  ${lerr?`<p class="bad" style="margin:10px 0 0">${esc(lerr)}</p>`:''}
+  ${su?`<button class="btn" onclick="doSignup()">Create account</button> <button class="btn alt" onclick="setMode('login')">Back to login</button>`
+   :`<button class="btn" onclick="doLogin()">Login</button> <button class="btn alt" onclick="forgot()">Forgot password</button>${lrole==='user'?`<p style="margin:14px 0 0">New user? <a href="#" onclick="setMode('signup');return false" style="color:var(--pitch);font-weight:700">Sign up</a></p>`:''}`}</div>`}
+function setMode(m){lmode=m;lerr='';lmsg='';render()}
+async function doSignup(){
+  if(busy)return;const n=$('#sn').value.trim(),raw=$('#lu').value.trim(),p=$('#lp').value,p2=$('#lp2').value;
+  if(!n||!raw){lerr='Enter your name and login ID';render();return}
+  if(p.length<6){lerr='Password must be at least 6 characters';render();return}
+  if(p!==p2){lerr='Passwords do not match';render();return}
+  const email=toEmail(raw);if(email===ADMIN){lerr='This ID is not allowed';render();return}
+  busy=true;lerr='';signingUp=true;let ok=false,k=null;
+  try{k=(await FB.signup(email,p)).user.uid}
+  catch(e){const c=e.code||'';lerr=c==='auth/email-already-in-use'?'This login ID is already registered. Please log in.':c==='auth/invalid-email'?'Enter a valid email or mobile number':c==='auth/weak-password'?'Password is too weak':c.includes('network')?'Network error. Check your internet.':'Could not create account: '+(c||e.message)}
+  if(k){try{await FB.set('users/'+k,{uid:k,name:n.slice(0,60),email,active:true})}catch(e){}ok=true}
+  signingUp=false;
+  if(ok){lmsg='Account created. Please log in.';lmode='login';lerr=''}
+  try{await FB.logout()}catch(e){}
+  busy=false;render()}
+function setRole(r){lrole=r;lmode='login';lerr='';lmsg='';render()}
+async function doLogin(){
+  if(busy)return;const raw=$('#lu').value,p=$('#lp').value;
+  if(!raw.trim()||!p){lerr='Enter your login ID and password';render();return}
+  busy=true;lerr='';justLogin=true;
+  try{await FB.login(toEmail(raw),p)}catch(e){justLogin=false;lerr=(e.code||'').includes('network')?'Network error. Check your internet.':'Wrong login ID or password';render()}
+  busy=false}
+async function onAuth(u){
+  if(signingUp)return;
+  stopAll();
+  if(!u){AUTH=null;authReady=true;render();return}
+  const em=(u.email||'').toLowerCase();let role=null,name='';
+  if(em===ADMIN){role='admin';name='Admin'}
+  else{try{let d=await FB.get('users/'+u.uid);if(!d){d={uid:u.uid,name:em,email:em,active:true};await FB.set('users/'+u.uid,d)}if(d.active===true){role='user';name=d.name||em}}catch(e){}}
+  const jl=justLogin;justLogin=false;
+  if(!role){lerr='This login has no access. Please contact the admin.';await FB.logout();return}
+  if(jl&&role!==lrole){lerr=role==='admin'?'This is an admin account. Use Admin login.':'This is not an admin account. Use User login.';await FB.logout();return}
+  lerr='';lrole=role;AUTH={role,name,uid:u.uid};authReady=true;tab='live';watch();render()}
+function logout(){FB.logout()}
+function forgot(){const e=$('#lu').value.trim().toLowerCase();if(!e.includes('@'))return toast('Type your email in the Login ID box first');
+  FB.reset(e).then(()=>toast('If this account exists, a reset email was sent')).catch(x=>toast(x.code||'Error'))}
+function vSet(){return `<div class="card"><h2>Admin password</h2><p class="mute" style="margin:0">Admin login: ${esc(ADMIN)}</p>
+  <button class="btn" onclick="resetPw()">Send password reset email</button></div>
+  <div class="card"><h2>User logins (view only)</h2><p class="mute" style="margin:0 0 8px">Users can also sign up themselves from the User login screen. Disable anyone who should not have access.</p>
+  ${S.users.length?S.users.map(x=>`<div class="row"><div>${esc(x.name||x.email)}<br><small>${esc(x.email.replace('@shanti-academy.app',''))} · ${x.active?'Active':'Disabled'}</small></div><button class="btn alt" style="margin:0" onclick="toggleUser('${x.uid}',${!x.active})">${x.active?'Disable':'Enable'}</button></div>`).join(''):'<p class="mute">No users yet.</p>'}
+  <h2 style="margin-top:14px">Add user</h2><label for="un">Name</label><input id="un">
+  <label for="uu">Login ID (email or mobile number)</label><input id="uu" autocapitalize="none">
+  <label for="up">Password (min 6 characters)</label><input id="up">
+  <button class="btn" onclick="addUser()">Add user</button></div>`}
+function resetPw(){if(!isA())return;FB.reset(ADMIN).then(()=>toast('Reset email sent to '+ADMIN)).catch(x=>toast(x.code||'Error'))}
+async function addUser(){
+  if(!isA()||busy)return;const id=$('#uu').value.trim(),n=$('#un').value.trim(),p=$('#up').value;
+  if(!id||p.length<6)return toast('Enter a login ID and a password (min 6 characters)');
+  const email=toEmail(id);if(email===ADMIN)return toast('This ID is not allowed');
+  busy=true;
+  try{const k=await FB.createUser(email,p);await FB.set('users/'+k,{uid:k,name:n||id,email,active:true});toast('User added')}
+  catch(e){toast(e.code==='auth/email-already-in-use'?'This login ID already exists. Enable it from the list or use another ID.':'Could not add user: '+(e.code||e.message))}
+  busy=false;render()}
+function toggleUser(k,active){if(!isA())return;const x=S.users.find(u=>u.uid===k);if(!x)return;FB.set('users/'+k,{uid:k,name:x.name,email:x.email,active})}
+
+/* ---------- tabs ---------- */
+const TABS=[['live','🔴 Live Match'],['matches','Match Records'],['att','Attendance'],['fee','Fees'],['pl','Players']];
+const tabsFor=()=>isA()?TABS.concat([['set','Settings']]):TABS.slice(0,2);
+function render(){
+  if(!AUTH){$('#bar').innerHTML='';$('#nav').innerHTML='';$('#main').innerHTML=vLogin();return}
+  const T=tabsFor();if(!T.some(t=>t[0]===tab))tab=T[0][0];
+  $('#bar').innerHTML=`<div class="bar2"><span>Signed in: <b>${esc(AUTH.name)}</b> · ${isA()?'Admin':'User (view only)'}</span><button onclick="logout()">Logout</button></div>`;
+  $('#nav').innerHTML=T.map(t=>`<button onclick="go('${t[0]}')" ${tab===t[0]?'aria-current="true"':''}>${t[1]}</button>`).join('');
+  $('#main').innerHTML=({live:vLive,matches:vMatches,att:vAtt,fee:vFee,pl:vPl,set:vSet})[tab]();
+}
+function go(t){tab=t;render()}
+
+/* ---------- live match ---------- */
+const sel=(title,ids,fn,N)=>`<div class="card"><h2>${title}</h2><div class="chips">${ids.map(id=>`<button onclick="${fn}(${id})">${esc(N[id])}</button>`).join('')}</div></div>`;
+function vLive(){
+  const L=S.live,N=L?{...N0(),...L.names}:N0();
+  if(!L&&!isA())return '<div class="card"><h2>No live match right now</h2><p class="mute" style="margin:0">When a match starts, the live score and scorecard will appear here. Past games are in Match Records.</p></div>';
+  if(!L)return `<div class="card"><h2>New Live Match</h2>
+    <div class="g2"><div><label for="ta">Team A name</label><input id="ta" value="Royals"></div><div><label for="tb">Team B name</label><input id="tb" value="Tigers"></div></div>
+    <label for="ov">Overs</label><select id="ov"><option>3</option><option selected>5</option><option>10</option><option>20</option></select>
+    <h2 style="margin-top:16px">Select players</h2>
+    ${S.players.map((p,i)=>{const c=career(p.id);return `<div class="row"><div>${esc(p.name)}<br><small>${c.m} matches · ${c.r} runs · ${c.w} wickets</small></div>
+      <select class="tm" data-id="${p.id}" style="width:auto"><option value="a" ${i%2?'':'selected'}>Team A</option><option value="b" ${i%2?'selected':''}>Team B</option><option value="x">Not playing</option></select></div>`}).join('')}
+    <h2 style="margin-top:16px">Outside / guest players</h2>
+    <p class="mute" style="margin:0 0 6px">Playing against another team? Type their players here, one name per line. Guests are used only for this match scorecard.</p>
+    <div class="g2"><div><label for="ga">Team A guests</label><textarea id="ga" rows="6"></textarea></div><div><label for="gb">Team B guests</label><textarea id="gb" rows="6"></textarea></div></div>
+    <button class="btn" onclick="startMatch()">Start match</button></div>`;
+  const i=L.cur,I=L.inn[i],s=st(I),done=ended(L,i),o=L.inn[0];
+  let lc=0,start=0;I.log.forEach((e,k)=>{if(legal(e)){lc++;if(lc%6===0)start=k+1}});
+  const chips=I.log.slice(start).map(e=>`<span class="${e.w?'w':''}">${e.w?'W':e.t==='n'?e.r:e.t==='wd'?'Wd':e.t==='nb'?'Nb':e.t==='bye'?'B':'Lb'}${!e.w&&e.t!=='n'&&e.r?'+'+e.r:''}</span>`).join('');
+  let line='Run rate '+(s.b?(s.r*6/s.b).toFixed(2):'0.00');
+  if(i===1){const need=st(o).r+1-s.r;line=need>0?`Need ${need} runs from ${L.overs*6-s.b} balls`:'Target achieved'}
+  const pl=id=>{if(id===null)return '<div><span>—</span></div>';const x=batOf(I,id);return `<div><span>${id===I.s?'▸ ':''}${esc(N[id])}</span><b>${x.r} (${x.b}) · 4×${x.f} 6×${x.s}</b></div>`};
+  const bl=I.bw===null?'<div><span>Bowler: —</span></div>':(x=>`<div><span>Bowler: ${esc(N[I.bw])}</span><b>${ov(x.b)}-${x.m}-${x.r}-${x.w} <small>O-M-R-W</small></b></div>`)(bowlOf(I,I.bw));
+  let ctl='';
+  if(done){ctl=`<div class="card">${i===0?`<p><b>${esc(I.team)}: ${s.r}/${s.w}</b> — 1st innings over. Target ${s.r+1}</p><button class="btn" onclick="nextInn()">Start 2nd innings</button>`:`<p><b>${esc(result(o,I))}</b></p><button class="btn" onclick="finish()">Save match</button>`}</div>`}
+  else if(I.s===null||I.n===null)ctl=sel(I.s===null?'Select striker':'Select non-striker',I.bat.filter(id=>!I.used.includes(id)),'pb',N);
+  else if(I.bw===null){let b=I.bowl;const last=I.log.length?I.log[I.log.length-1].bw:null;if(b.length>1)b=b.filter(id=>id!==last);ctl=sel('Select next bowler',b,'pw',N)}
+  else if(L.wk){const w=L.wk;ctl=`<div class="card"><h2>How was the batter out?</h2><div class="chips">${ALLOW[L.mode].map(h=>`<button class="${w.how===h?'on':''}" onclick="wkHow('${h}')">${HOW[h]}</button>`).join('')}</div>
+    ${w.how==='runout'?`<label>Run out at which end?</label><div class="chips">${[['s','Striker’s end'],['b','Bowler’s end']].map(x=>`<button class="${w.end===x[0]?'on':''}" onclick="wkEnd('${x[0]}')">${x[1]}</button>`).join('')}</div><label>Who is out</label><div class="chips">${[I.s,I.n].map(id=>`<button class="${w.out===id?'on':''}" onclick="wkOut(${id})">${esc(N[id])}</button>`).join('')}</div>
+    <label>Runs completed before the dismissal</label><div class="chips">${[0,1,2,3].map(r=>`<button class="${w.r===r?'on':''}" onclick="wkRuns(${r})">${r}</button>`).join('')}</div>`:''}
+    <button class="btn" ${w.how&&(w.how!=='runout'||w.end)?'':'disabled'} onclick="wkOk()">Record wicket</button> <button class="btn alt" onclick="wkNo()">Cancel</button></div>`}
+  else ctl=`<div class="card"><div class="chips" style="margin-bottom:10px">${MODES.map(m=>`<button class="${L.mode===m[0]?'on':''}" onclick="mode('${m[0]}')">${m[1]}</button>`).join('')}</div>
+    ${HINT[L.mode]?`<p class="mute" style="margin:0 0 8px">${HINT[L.mode]}</p>`:''}
+    ${L.mode==='nb'?`<div class="chips" style="margin-bottom:10px">${[['bat','Runs off bat'],['bye','Byes'],['lb','Leg byes']].map(x=>`<button class="${(L.nbx||'bat')===x[0]?'on':''}" onclick="nbx('${x[0]}')">${x[1]}</button>`).join('')}</div>`:''}
+    <div class="pad c3">${[0,1,2,3,4,6].map(n=>`<button class="${n>3?'f':''}" onclick="run(${n})">${n}</button>`).join('')}
+    <button class="x" onclick="wkOpen()">Out</button><button onclick="undo()" ${I.log.length?'':'disabled'}>↩︎ Undo</button><button class="x" onclick="endInn()">End innings</button></div></div>`;
+  if(!isA())ctl='';
+  const xu=(!isA()||!I.log.length||L.wk||ctl.includes('class="pad c3"'))?'':'<button class="btn alt" style="margin:0 0 12px" onclick="undo()">↩︎ Undo last ball</button>';
+  return `<div class="board"><div class="t">${esc(I.team)} batting · Innings ${i+1}</div><div class="big">${s.r}/${s.w}</div>
+    <div class="meta"><span>Overs ${ov(s.b)} / ${L.overs}</span><span>${line}</span></div>
+    <div class="pl">${pl(I.s)}${pl(I.n)}${bl}</div><div class="balls" aria-label="Balls this over">${chips}</div></div>
+    ${ctl}${xu}
+    ${i===1?`<details class="card"><summary><b>1st innings: ${esc(o.team)} ${st(o).r}/${st(o).w}</b></summary>${card(o,N)}</details>`:''}
+    <div class="card"><h2>${esc(I.team)} — Scorecard</h2>${card(I,N)}</div>
+    ${isA()?'<button class="btn alt" onclick="abort()">Cancel match</button>':''}`;
+}
+const cu=()=>S.live.inn[S.live.cur];
+function startMatch(){
+  const A=[],B=[];document.querySelectorAll('.tm').forEach(e=>{if(e.value==='a')A.push(+e.dataset.id);if(e.value==='b')B.push(+e.dataset.id)});
+  const names={...N0()};const gp=(id,arr)=>($(id).value||'').split('\n').map(x=>x.trim()).filter(Boolean).forEach(n=>{const k=uid();names[k]=n;arr.push(k)});gp('#ga',A);gp('#gb',B);
+  if(A.length<2||B.length<2)return toast('Each team needs at least 2 players');
+  const a=$('#ta').value.trim()||'Team A',b=$('#tb').value.trim()||'Team B';
+  S.live={a,b,overs:+$('#ov').value,cur:0,mode:'n',wk:null,names,inn:[newInn(a,A,B),newInn(b,B,A)]};save();render()}
+function nbx(v){S.live.nbx=v;save();render()}
+function mode(m){S.live.mode=m;S.live.nbx='bat';save();render()}
+function run(r){const L=S.live;push(cu(),{t:L.mode,r,x:L.mode==='nb'&&L.nbx&&L.nbx!=='bat'?L.nbx:undefined});L.mode='n';L.nbx='bat';save();render()}
+function pb(id){pickBat(cu(),id);save();render()}
+function pw(id){cu().bw=id;save();render()}
+function undo(){undoE(cu());save();render()}
+function endInn(){cu().done=true;save();render()}
+function nextInn(){S.live.cur=1;S.live.mode='n';save();render()}
+function abort(){S.live=null;save();render()}
+function wkOpen(){S.live.wk={how:null,out:cu().s,r:0};render()}
+function wkEnd(x){S.live.wk.end=x;render()}
+function wkHow(h){const w=S.live.wk;w.how=h;w.end=null;if(h!=='runout'){w.out=cu().s;w.r=0}render()}
+function wkOut(id){S.live.wk.out=id;render()}
+function wkRuns(r){S.live.wk.r=r;render()}
+function wkNo(){S.live.wk=null;render()}
+function wkOk(){const L=S.live,w=L.wk;push(cu(),{t:L.mode,r:w.r,x:L.mode==='nb'&&L.nbx&&L.nbx!=='bat'?L.nbx:undefined,w:{how:w.how,out:w.out,end:w.how==='runout'?w.end:undefined}});L.wk=null;L.mode='n';L.nbx='bat';save();render()}
+function finish(){const L=S.live,inn=JSON.parse(JSON.stringify(L.inn));inn.forEach(I=>I.log.forEach(e=>{delete e.pre}));
+  const id=uid(),m={id,date:iso(new Date()),a:L.a,b:L.b,overs:L.overs,names:{...N0(),...L.names},inn,res:result(L.inn[0],L.inn[1])};
+  FB.set('matches/'+id,m);S.live=null;save();tab='matches';render();toast('Match saved to records')}
+
+/* ---------- match records ---------- */
+function best(m){let bt=null,bo=null;
+  m.inn.forEach(I=>{I.used.forEach(id=>{const x=batOf(I,id);if(!bt||x.r>bt.r)bt={id,r:x.r,b:x.b}});
+    I.bowl.forEach(id=>{const x=bowlOf(I,id);if(x.b&&(!bo||x.w>bo.w||(x.w===bo.w&&x.r<bo.r)))bo={id,w:x.w,r:x.r}})});
+  return bt&&bo?`<p class="mute">Top scorer: <b>${esc(m.names[bt.id])}</b> ${bt.r} (${bt.b}) · Best bowler: <b>${esc(m.names[bo.id])}</b> ${bo.w}/${bo.r}</p>`:''}
+function vMatches(){
+  const t=S.matches.reduce((a,m)=>a+st(m.inn[0]).r+st(m.inn[1]).r,0),n=S.matches.length;
+  return `<div class="stats"><div><b>${n}</b><small>Total matches</small></div><div><b>${t}</b><small>Total runs</small></div><div><b>${n?Math.round(t/(n*2)):0}</b><small>Avg innings score</small></div></div>`+
+  (n?S.matches.map(m=>`<details class="card"><summary><div class="row" style="border:0;padding:0"><b>${esc(m.a)} vs ${esc(m.b)}</b><small>${fmt(m.date)} · ${m.overs} overs</small></div>
+    ${m.inn.map(I=>{const x=st(I);return `<div class="row"><span>${esc(I.team)}</span><b>${x.r}/${x.w} <small>(${ov(x.b)})</small></b></div>`}).join('')}
+    <p class="ok" style="margin:6px 0 0"><b>${esc(m.res)}</b> <small class="mute">· Tap for full scorecard</small></p></summary>
+    ${best(m)}${m.inn.map(I=>`<h2 style="margin:14px 0 6px">${esc(I.team)}</h2>${card(I,m.names)}`).join('')}</details>`).join(''):'<p class="mute">No matches yet. Start one from “Live Match”.</p>');
+}
+
+/* ---------- attendance ---------- */
+function vAtt(){
+  const day=S.att[attDate]||{};const n=S.players.filter(p=>day[p.id]).length;
+  return `<div class="card"><label for="ad">Date</label><input type="date" id="ad" value="${attDate}" max="${iso(new Date())}" onchange="attDate=this.value;render()">
+    <p class="mute" style="margin:10px 0 0">Present: <b>${n}</b> / ${S.players.length}</p></div>
+  <div class="card">${S.players.map(p=>{const v=day[p.id];return `<div class="row"><div>${esc(p.name)}<br><small>${p.batch} batch</small></div>
+    <div class="seg"><button class="p ${v===true?'on':''}" onclick="mark(${p.id},true)">Present</button>
+    <button class="a ${v===false?'on':''}" onclick="mark(${p.id},false)">Absent</button></div></div>`}).join('')}</div>`;
+}
+function mark(id,v){const d=attDate;FB.set('attendance/'+d.slice(0,7),{days:{[d]:{[id]:v}}},true)}
+
+/* ---------- fees ---------- */
+function vFee(){
+  const tot=S.players.reduce((a,p)=>a+p.fee,0),got=S.players.reduce((a,p)=>a+paidOf(p),0);
+  return `<div class="stats"><div><b>${inr(tot)}</b><small>Total fees</small></div><div><b class="ok">${inr(got)}</b><small>Collected</small></div><div><b class="bad">${inr(tot-got)}</b><small>Pending</small></div></div>
+  <div class="card"><h2>Collect fee</h2><label for="fp">Player</label>
+    <select id="fp">${S.players.filter(p=>p.fee>paidOf(p)).map(p=>`<option value="${p.id}">${esc(p.name)} (pending ${inr(p.fee-paidOf(p))})</option>`).join('')}</select>
+    <div class="g2"><div><label for="fa">Amount (₹)</label><input id="fa" type="number" inputmode="numeric" min="1"></div>
+    <div><label for="fm">Mode</label><select id="fm"><option>Cash</option><option>UPI</option><option>Bank</option></select></div></div>
+    <button class="btn" onclick="addPay()">Save receipt</button></div>
+  <div class="card">${S.players.map(p=>{const g=paidOf(p),pc=Math.round(g*100/p.fee),last=p.pay[p.pay.length-1];
+    return `<div class="row" style="display:block"><div style="display:flex;justify-content:space-between;gap:8px"><span>${esc(p.name)}</span>
+    <span class="badge ${g>=p.fee?'ok':g?'warn':'bad'}">${g>=p.fee?'Paid':g?'Partial':'Pending'}</span></div>
+    <small>${inr(g)} / ${inr(p.fee)}${last?' · Last: '+fmt(last.d)+' ('+last.mode+')':''}</small><div class="bar"><i style="width:${pc}%"></i></div></div>`}).join('')}</div>`;
+}
+function addPay(){
+  const p=S.players.find(x=>x.id==$('#fp').value);if(!p)return toast('All fees are paid');
+  let a=Math.floor(+$('#fa').value);if(!(a>0))return toast('Enter a valid amount');
+  a=Math.min(a,p.fee-paidOf(p));FB.set('players/'+p.id,{...p,pay:p.pay.concat([{d:iso(new Date()),amt:a,mode:$('#fm').value}])});toast(inr(a)+' received')}
+
+/* ---------- players ---------- */
+function vPl(){
+  return `<div class="card"><h2>Add new player</h2>
+    <label for="pn">Name</label><input id="pn">
+    <div class="g2"><div><label for="pa">Age</label><input id="pa" type="number" inputmode="numeric"></div>
+    <div><label for="pb">Batch</label><select id="pb"><option>Morning</option><option>Evening</option></select></div></div>
+    <label for="pf">Admission fee (₹)</label><input id="pf" type="number" inputmode="numeric" value="6000">
+    <button class="btn" onclick="addPl()">Add</button></div>
+  <div class="card">${S.players.map(p=>{const a=attPct(p),c=career(p.id);return `<div class="row"><div>${esc(p.name)}<br><small>${p.age} yrs · ${p.batch} batch</small><br><small>${c.m} matches · ${c.r} runs (best ${c.hs}) · ${c.w} wickets</small></div>
+    <div style="text-align:right"><b class="${a===null?'':a>=75?'ok':'bad'}">${a===null?'—':a+'%'}</b><br><small>Attendance</small></div></div>`}).join('')}</div>`;
+}
+function addPl(){
+  const n=$('#pn').value.trim();if(!n)return toast('Enter a name');const id=uid();
+  FB.set('players/'+id,{id,name:n,age:+$('#pa').value||0,batch:$('#pb').value,fee:+$('#pf').value||0,pay:[]});toast('Player added')}
+
+
+render();
+function boot(){FB.onAuth(onAuth)}
+if(window.FB)boot();else window.addEventListener('fbready',boot);
+setTimeout(()=>{if(!window.FB&&!AUTH){fbFail=true;render()}},10000);
+window.addEventListener('fberror',()=>{fbFail=true;render()});
+</script>
+</body>
+</html>

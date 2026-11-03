@@ -1,0 +1,25 @@
+{
+  "name": "SHANTI CRICKET STADIUM & ACADEMY",
+  "short_name": "Shanti Cricket",
+  "description": "Live scores, attendance and fees for Shanti Cricket Stadium & Academy",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#031d36",
+  "theme_color": "#1E5B38",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

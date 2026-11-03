@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHANTI CRICKET STADIUM &amp; ACADEMY</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1E5B38">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shanti Cricket">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Teko:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5EE;--sf:#fff;--ink:#14241A;--mute:#5B6B60;--line:#D8E0D2;--pitch:#1E5B38;--ball:#B3261E;--ok:#1E7A46;--warn:#A85F00;--chip:#E6EDE0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A13;--sf:#17261D;--ink:#E8F0E8;--mute:#9DB0A2;--line:#2A3C30;--pitch:#25744A;--ball:#E5645A;--ok:#4CC380;--warn:#E8A33D;--chip:#223429}}
+:root[data-theme="dark"]{--bg:#0F1A13;--sf:#17261D;--ink:#E8F0E8;--mute:#9DB0A2;--line:#2A3C30;--pitch:#25744A;--ball:#E5645A;--ok:#4CC380;--warn:#E8A33D;--chip:#223429}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Noto Sans",system-ui,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:20px;margin:0 0 14px}
+.sub{color:var(--mute);font-size:13px;margin:2px 0 14px}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px}
+nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:8px 14px;border-radius:20px;font:600 14px "Noto Sans",sans-serif;cursor:pointer}
+nav button[aria-current="true"]{background:var(--pitch);border-color:var(--pitch);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ball);outline-offset:2px}
+.card{background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.card h2{font-size:16px;margin:0 0 10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row small,.mute{color:var(--mute);font-size:13px}
+label{display:block;font-size:13px;color:var(--mute);margin:8px 0 3px}
+input,select{width:100%;padding:10px;font:400 16px "Noto Sans",sans-serif;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{border:0;background:var(--pitch);color:#fff;padding:11px 16px;border-radius:8px;font:600 15px "Noto Sans",sans-serif;cursor:pointer;margin-top:12px}
+.btn.alt{background:var(--chip);color:var(--ink)}
+.btn.red{background:var(--ball)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.board{background:var(--pitch);color:#fff;border-radius:12px;padding:18px 16px 16px;margin-bottom:12px;position:relative;overflow:hidden}
+.board::after{content:"";position:absolute;left:0;right:0;bottom:46px;border-top:2px solid rgba(255,255,255,.22)}
+.board .t{font-size:14px;opacity:.85}
+.board .big{font:600 76px/1 Teko,"Noto Sans",sans-serif;letter-spacing:1px;margin:2px 0}
+.board .meta{display:flex;gap:16px;font-size:14px;flex-wrap:wrap;opacity:.95}
+.balls{display:flex;gap:6px;margin-top:14px;min-height:30px;position:relative;z-index:1;flex-wrap:wrap}
+.balls span{min-width:30px;height:30px;border-radius:15px;background:rgba(255,255,255,.18);display:grid;place-items:center;font:600 14px sans-serif;padding:0 6px}
+.balls span.w{background:var(--ball)}
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pad button{padding:14px 0;border-radius:8px;border:1px solid var(--line);background:var(--sf);color:var(--ink);font:600 18px "Noto Sans",sans-serif;cursor:pointer}
+.pad button.f{border-color:var(--pitch);color:var(--pitch)}
+.pad button.x{border-color:var(--ball);color:var(--ball);font-size:15px}
+.pad button:disabled{opacity:.35}
+.badge{font-size:12px;font-weight:700;padding:2px 9px;border-radius:10px;background:var(--chip)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--ball)}
+.bar{height:6px;background:var(--chip);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stats div{background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:10px}
+.stats b{display:block;font-size:19px}
+.seg{display:flex;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:7px 12px;border-radius:8px;font:600 13px "Noto Sans",sans-serif;cursor:pointer}
+.seg button.on.p{background:var(--ok);border-color:var(--ok);color:#fff}
+.seg button.on.a{background:var(--ball);border-color:var(--ball);color:#fff}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:20px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+textarea{width:100%;padding:10px;font:400 16px "Noto Sans",system-ui,sans-serif;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:-6px 0 12px;font-size:13px;color:var(--mute)}
+.bar2 button{border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:6px 12px;border-radius:16px;font:600 13px "Noto Sans",system-ui,sans-serif;cursor:pointer}
+#print{display:none}
+#print.show{display:block;position:fixed;inset:0;z-index:50;background:#fff;color:#111;overflow:auto;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
+#print .mute{color:#555}
+#print th{color:#333;border-bottom:1px solid #888}
+#print td{border-bottom:1px solid #ccc;color:#111}
+#print th,#print td{text-align:left!important}
+#print table.wide{font-size:9px}
+#print table.wide th,#print table.wide td{padding:2px 3px;text-align:center!important}
+#print table.wide td:first-child,#print table.wide th:first-child{text-align:left!important}
+@media print{.wrap,.toast{display:none!important}#print.show{position:static;display:block;overflow:visible;padding:0}#print .tb{display:none}body{background:#fff}}
+.lnk{background:none;border:0;color:var(--pitch);font:600 13px "Noto Sans",system-ui,sans-serif;padding:6px 0;cursor:pointer}
+.lnk.bad{color:var(--ball)}
+.payrow{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;padding:2px 0}
+.board::after{display:none}
+.pl{margin-top:12px;border-top:2px solid rgba(255,255,255,.25);padding-top:8px;font-size:15px}
+.pl div{display:flex;justify-content:space-between;gap:8px;padding:2px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--line);background:var(--sf);color:var(--ink);padding:9px 14px;border-radius:8px;font:600 14px "Noto Sans",sans-serif;cursor:pointer}
+.chips button.on{background:var(--pitch);border-color:var(--pitch);color:#fff}
+.pad.c3{grid-template-columns:repeat(3,1fr)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:10px}
+th{text-align:left;color:var(--mute);font-weight:600;border-bottom:1px solid var(--line);padding:6px 4px}
+td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td small{display:block;color:var(--mute)}
+th:not(:first-child),td:not(:first-child){text-align:right}
+details.card summary{cursor:pointer;list-style:none}
+details.card summary::-webkit-details-marker{display:none}
+details.card[open] summary{margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 style="display:flex;align-items:center;gap:10px"><img src="icon-192.png" alt="" width="38" height="38" style="border-radius:9px" onerror="this.style.display='none'"><span>SHANTI CRICKET STADIUM &amp; ACADEMY</span></h1>
+  <div id="bar"></div>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast"></div>
+<div id="print"></div>
+<script type="module">
+(async()=>{
+const V='10.14.1',U=[b=>`https://www.gstatic.com/firebasejs/${V}/firebase-${b}.js`,b=>`https://cdn.jsdelivr.net/npm/firebase@${V}/${b}/+esm`];
+const fail=e=>{window.FBERR=String(e&&e.message||e);window.dispatchEvent(new Event('fberror'))};
+let M,last;
+for(const u of U){try{M=await Promise.all(['app','auth','firestore'].map(b=>import(u(b))));break}catch(e){last=e}}
+if(!M){fail(last);return}
+try{
+const [{initializeApp},{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword,sendPasswordResetEmail},{getFirestore,doc,getDoc,setDoc,deleteDoc,onSnapshot,collection}]=M;
+const cfg={apiKey:"AIzaSyAXPwSyy4xEx0WvRhieEMRTJzJ1rtrc3ko",authDomain:"shanti-cricket.firebaseapp.com",projectId:"shanti-cricket",storageBucket:"shanti-cricket.firebasestorage.app",messagingSenderId:"10295363576",appId:"1:10295363576:web:56c4c5a8afdb01d64d380d"};
+const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app);
+const D=p=>doc(db,...p.split('/')),clean=o=>JSON.parse(JSON.stringify(o));
+window.FB={
+  onAuth:cb=>onAuthStateChanged(auth,cb),
+  login:(e,p)=>signInWithEmailAndPassword(auth,e,p),
+  logout:()=>signOut(auth),
+  signup:(e,p)=>createUserWithEmailAndPassword(auth,e,p),
+  reset:e=>sendPasswordResetEmail(auth,e),
+  async createUser(e,p){const a2=initializeApp(cfg,'sec'+Date.now()),au=getAuth(a2);const c=await createUserWithEmailAndPassword(au,e,p);await signOut(au);return c.user.uid},
+  async get(p){const x=await getDoc(D(p));return x.exists()?x.data():null},
+  set:(p,d,merge)=>setDoc(D(p),clean(d),{merge:!!merge}),
+  del:p=>deleteDoc(D(p)),
+  watchDoc:(p,cb,err)=>onSnapshot(D(p),x=>cb(x.exists()?x.data():null),err),
+  watchCol:(p,cb,err)=>onSnapshot(collection(db,...p.split('/')),x=>cb(x.docs.map(d=>({id:d.id,...d.data()}))),err)
+};
+window.dispatchEvent(new Event('fbready'));
+}catch(e){fail(e)}
+})();
+</script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN');
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const ago=n=>{const d=new Date();d.setDate(d.getDate()-n);return iso(d)};
+const fmt=s=>{const [y,m,d]=s.split('-');return d+'/'+m+'/'+y};
+const ADMIN='g42307@gmail.com';
+let AUTH=null,lrole='admin',lerr='',busy=false,authReady=false,fbFail=false,justLogin=false,unsubs=[];
+const isA=()=>!!AUTH&&AUTH.role==='admin';
+let _u=0;const uid=()=>{_u=Math.max(_u+1,Date.now()*1000);return _u};
+const toEmail=s=>{s=String(s).trim().toLowerCase().replace(/\s+/g,'');return s.includes('@')?s:s+'@shanti-academy.app'};
+let S={players:[],att:{},matches:[],live:null,users:[]},tab='live',attDate=iso(new Date());
+const HOW={bowled:'Bowled',caught:'Caught',lbw:'LBW',runout:'Run out',stumped:'Stumped',hw:'Hit wicket'};
+const ALLOW={n:Object.keys(HOW),wd:['runout','stumped'],nb:['runout'],bye:['runout'],lb:['runout']};
+const MODES=[['n','Normal'],['wd','Wide'],['nb','No ball'],['bye','Bye'],['lb','Leg bye']];
+const HINT={wd:'Wide: 1 run added automatically + runs completed',nb:'No ball: 1 run added automatically. Pick where the other runs came from.',bye:'Bye: runs go to extras, not charged to the bowler',lb:'Leg bye: runs go to extras, not charged to the bowler'};
+
+/* ---------- scoring engine ---------- */
+const legal=e=>e.t==='n'||e.t==='bye'||e.t==='lb';
+const tot=e=>(e.t==='wd'||e.t==='nb'?1:0)+e.r;
+const batR=e=>e.t==='n'||(e.t==='nb'&&!e.x)?e.r:0;
+const newInn=(team,bat,bowl)=>({team,bat,bowl,log:[],used:[],s:null,n:null,bw:null,done:false});
+function push(I,e){
+  e.pre={s:I.s,n:I.n,bw:I.bw,u:I.used.slice()};e.s=I.s;e.bw=I.bw;I.log.push(e);
+  const w=e.w;
+  if(w&&w.how==='runout'&&w.end){const sv=w.out===I.s?I.n:I.s;if(w.end==='s'){I.s=null;I.n=sv}else{I.n=null;I.s=sv}}
+  else{if(e.r%2){const t=I.s;I.s=I.n;I.n=t}
+    if(w){if(I.s===w.out)I.s=null;else I.n=null}}
+  if(legal(e)&&I.log.filter(legal).length%6===0){const t=I.s;I.s=I.n;I.n=t;I.bw=null}
+}
+function pickBat(I,id){if(I.s===null)I.s=id;else I.n=id;I.used.push(id)}
+function undoE(I){const e=I.log.pop();if(!e)return;I.s=e.pre.s;I.n=e.pre.n;I.bw=e.pre.bw;I.used=e.pre.u;I.done=false}
+function st(I){let r=0,w=0,b=0;I.log.forEach(e=>{r+=tot(e);if(e.w)w++;if(legal(e))b++});return{r,w,b}}
+function ended(L,i){const I=L.inn[i],s=st(I);return I.done||s.b>=L.overs*6||s.w>=I.bat.length-1||(i===1&&s.r>st(L.inn[0]).r)}
+function batOf(I,id){let r=0,b=0,f=0,s=0,out=null;I.log.forEach(e=>{if(e.s===id){const x=batR(e);r+=x;if(e.t!=='wd')b++;if(x===4)f++;if(x===6)s++}if(e.w&&e.w.out===id)out=e});return{r,b,f,s,out}}
+function bowlOf(I,id){let b=0,r=0,w=0,lc=0;const O={};I.log.forEach(e=>{const k=Math.floor(lc/6);if(e.bw===id){const c=batR(e)+(e.t==='wd'?1+e.r:e.t==='nb'?1:0),o=O[k]||(O[k]={b:0,r:0});if(legal(e)){b++;o.b++}r+=c;o.r+=c;if(e.w&&e.w.how!=='runout')w++}if(legal(e))lc++});let m=0;for(const k in O)if(O[k].b===6&&O[k].r===0)m++;return{b,r,w,m}}
+function result(a,b){const x=st(a),y=st(b);
+  if(y.r>x.r)return b.team+' won by '+(b.bat.length-1-y.w)+' wickets';
+  if(x.r>y.r)return a.team+' won by '+(x.r-y.r)+' runs';return 'Match tied'}
+/* ---------- data ---------- */
+function save(){if(!isA())return;if(S.live)FB.set('live/current',S.live);else FB.del('live/current')}
+function stopAll(){unsubs.forEach(f=>{try{f()}catch(e){}});unsubs=[];S={players:[],att:{},matches:[],live:null,users:[]}}
+function watch(){
+  const err=e=>toast('Data error: '+(e.code||e.message)),R=()=>{if(AUTH)render()};
+  unsubs.push(FB.watchCol('matches',a=>{S.matches=a.sort((x,y)=>(y.date||'').localeCompare(x.date||'')||(y.id-x.id));R()},err));
+  unsubs.push(FB.watchDoc('live/current',d=>{S.live=d;R()},err));
+  if(isA()){
+    unsubs.push(FB.watchCol('players',a=>{S.players=a.sort((x,y)=>x.id-y.id);R()},err));
+    unsubs.push(FB.watchCol('attendance',a=>{const m={};a.forEach(d=>Object.assign(m,d.days||{}));S.att=m;R()},err));
+    unsubs.push(FB.watchCol('users',a=>{S.users=a;R()},err));
+  }
+}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1800)}
+const paidOf=p=>p.pay.reduce((a,x)=>a+x.amt,0);
+function attPct(p){let t=0,c=0;for(const d in S.att){if(p.id in S.att[d]){t++;if(S.att[d][p.id])c++}}return t?Math.round(c*100/t):null}
+const ov=b=>Math.floor(b/6)+'.'+(b%6);
+const N0=()=>Object.fromEntries(S.players.map(p=>[p.id,p.name]));
+function career(id){const c={m:0,r:0,b:0,w:0,hs:0};S.matches.forEach(M=>{const I0=M.inn[0];if(I0.bat.includes(id)||I0.bowl.includes(id))c.m++;
+  M.inn.forEach(I=>{const x=batOf(I,id);c.r+=x.r;c.b+=x.b;c.hs=Math.max(c.hs,x.r);c.w+=bowlOf(I,id).w})});return c}
+
+/* ---------- scorecard ---------- */
+function outTxt(o,N){if(!o)return 'Not out';const h=o.w.how;return HOW[h]+(h==='runout'?'':' · '+N[o.bw])}
+function card(I,N){
+  const s=st(I),ex={wd:0,nb:0,bye:0,lb:0};
+  I.log.forEach(e=>{if(e.t==='wd')ex.wd+=1+e.r;else if(e.t==='nb'){ex.nb++;if(e.x)ex[e.x]+=e.r}else if(e.t!=='n')ex[e.t]+=e.r});
+  let run=0,wk=0;const fow=[];I.log.forEach(e=>{run+=tot(e);if(e.w){wk++;fow.push(wk+'-'+run+' ('+N[e.w.out]+')')}});
+  const bw=[...new Set(I.log.map(e=>e.bw))];
+  return `<div class="tw"><table><tr><th>Batter</th><th>R</th><th>B</th><th>4</th><th>6</th><th>SR</th></tr>
+  ${I.used.map(id=>{const x=batOf(I,id);return `<tr><td>${esc(N[id])}<small>${esc(outTxt(x.out,N))}</small></td><td><b>${x.r}</b></td><td>${x.b}</td><td>${x.f}</td><td>${x.s}</td><td>${x.b?(x.r*100/x.b).toFixed(1):'-'}</td></tr>`}).join('')}
+  <tr><td>Extras<small>Wd ${ex.wd} · Nb ${ex.nb} · B ${ex.bye} · Lb ${ex.lb}</small></td><td colspan="5"><b>${ex.wd+ex.nb+ex.bye+ex.lb}</b></td></tr>
+  <tr><td><b>Total</b><small>${ov(s.b)} overs</small></td><td colspan="5"><b>${s.r}/${s.w}</b></td></tr></table>
+  <table><tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>Eco</th></tr>
+  ${bw.map(id=>{const x=bowlOf(I,id);return `<tr><td>${esc(N[id])}</td><td>${ov(x.b)}</td><td>${x.m}</td><td>${x.r}</td><td><b>${x.w}</b></td><td>${x.b?(x.r*6/x.b).toFixed(2):'-'}</td></tr>`}).join('')}</table>
+  ${fow.length?`<p class="mute" style="margin:0">Fall of wickets: ${esc(fow.join(', '))}</p>`:''}</div>`;
+}
+
+/* ---------- login & roles ---------- */
+let lmode='login',lmsg='',signingUp=false;
+function vLogin(){
+  if(!authReady)return `<div class="card"><p class="mute" style="margin:0">${fbFail?'Could not load. Check your internet and refresh the page.'+(window.FBERR?'<br><small>Details: '+esc(window.FBERR)+'</small>':''):'Loading…'}</p></div>`;
+  const su=lrole==='user'&&lmode==='signup';
+  return `<div class="card"><h2>${su?'Create user account':'Login'}</h2>
+  <div class="chips"><button class="${lrole==='admin'?'on':''}" onclick="setRole('admin')">Admin login</button><button class="${lrole==='user'?'on':''}" onclick="setRole('user')">User login</button></div>
+  ${su?`<label for="sn">Your name</label><input id="sn" autocomplete="name">`:''}
+  <label for="lu">Login ID (email or mobile number)</label><input id="lu" autocomplete="username" autocapitalize="none">
+  <label for="lp">Password${su?' (min 6 characters)':''}</label><input id="lp" type="password" autocomplete="${su?'new-password':'current-password'}" ${su?'':`onkeydown="if(event.key==='Enter')doLogin()"`}>
+  ${su?`<label for="lp2">Confirm password</label><input id="lp2" type="password" autocomplete="new-password">`:''}
+  ${lmsg?`<p class="ok" style="margin:10px 0 0"><b>${esc(lmsg)}</b></p>`:''}
+  ${lerr?`<p class="bad" style="margin:10px 0 0">${esc(lerr)}</p>`:''}
+  ${su?`<button class="btn" onclick="doSignup()">Create account</button> <button class="btn alt" onclick="setMode('login')">Back to login</button>`
+   :`<button class="btn" onclick="doLogin()">Login</button> <button class="btn alt" onclick="forgot()">Forgot password</button>${lrole==='user'?`<p style="margin:14px 0 0">New user? <a href="#" onclick="setMode('signup');return false" style="color:var(--pitch);font-weight:700">Sign up</a></p>`:''}`}</div>`}
+function setMode(m){lmode=m;lerr='';lmsg='';render()}
+async function doSignup(){
+  if(busy)return;const n=$('#sn').value.trim(),raw=$('#lu').value.trim(),p=$('#lp').value,p2=$('#lp2').value;
+  if(!n||!raw){lerr='Enter your name and login ID';render();return}
+  if(p.length<6){lerr='Password must be at least 6 characters';render();return}
+  if(p!==p2){lerr='Passwords do not match';render();return}
+  const email=toEmail(raw);if(email===ADMIN){lerr='This ID is not allowed';render();return}
+  busy=true;lerr='';signingUp=true;let ok=false,k=null;
+  try{k=(await FB.signup(email,p)).user.uid}
+  catch(e){const c=e.code||'';lerr=c==='auth/email-already-in-use'?'This login ID is already registered. Please log in.':c==='auth/invalid-email'?'Enter a valid email or mobile number':c==='auth/weak-password'?'Password is too weak':c.includes('network')?'Network error. Check your internet.':'Could not create account: '+(c||e.message)}
+  if(k){try{await FB.set('users/'+k,{uid:k,name:n.slice(0,60),email,active:true})}catch(e){}ok=true}
+  signingUp=false;
+  if(ok){lmsg='Account created. Please log in.';lmode='login';lerr=''}
+  try{await FB.logout()}catch(e){}
+  busy=false;render()}
+function setRole(r){lrole=r;lmode='login';lerr='';lmsg='';render()}
+async function doLogin(){
+  if(busy)return;const raw=$('#lu').value,p=$('#lp').value;
+  if(!raw.trim()||!p){lerr='Enter your login ID and password';render();return}
+  busy=true;lerr='';justLogin=true;
+  try{await FB.login(toEmail(raw),p)}catch(e){justLogin=false;lerr=(e.code||'').includes('network')?'Network error. Check your internet.':'Wrong login ID or password';render()}
+  busy=false}
+async function onAuth(u){
+  if(signingUp)return;
+  stopAll();
+  if(!u){AUTH=null;authReady=true;render();return}
+  const em=(u.email||'').toLowerCase();let role=null,name='';
+  if(em===ADMIN){role='admin';name='Admin'}
+  else{try{let d=await FB.get('users/'+u.uid);if(!d){d={uid:u.uid,name:em,email:em,active:true};await FB.set('users/'+u.uid,d)}if(d.active===true){role='user';name=d.name||em}}catch(e){}}
+  const jl=justLogin;justLogin=false;
+  if(!role){lerr='This login has no access. Please contact the admin.';await FB.logout();return}
+  if(jl&&role!==lrole){lerr=role==='admin'?'This is an admin account. Use Admin login.':'This is not an admin account. Use User login.';await FB.logout();return}
+  lerr='';lrole=role;AUTH={role,name,uid:u.uid};authReady=true;tab='live';watch();render()}
+function logout(){FB.logout()}
+function forgot(){const e=$('#lu').value.trim().toLowerCase();if(!e.includes('@'))return toast('Type your email in the Login ID box first');
+  FB.reset(e).then(()=>toast('If this account exists, a reset email was sent')).catch(x=>toast(x.code||'Error'))}
+function vSet(){return `<div class="card"><h2>Admin password</h2><p class="mute" style="margin:0">Admin login: ${esc(ADMIN)}</p>
+  <button class="btn" onclick="resetPw()">Send password reset email</button></div>
+  <div class="card"><h2>User logins (view only)</h2><p class="mute" style="margin:0 0 8px">Users can also sign up themselves from the User login screen. Disable anyone who should not have access.</p>
+  ${S.users.length?S.users.map(x=>`<div class="row"><div>${esc(x.name||x.email)}<br><small>${esc(x.email.replace('@shanti-academy.app',''))} · ${x.active?'Active':'Disabled'}</small></div><button class="btn alt" style="margin:0" onclick="toggleUser('${x.uid}',${!x.active})">${x.active?'Disable':'Enable'}</button></div>`).join(''):'<p class="mute">No users yet.</p>'}
+  <h2 style="margin-top:14px">Add user</h2><label for="un">Name</label><input id="un">
+  <label for="uu">Login ID (email or mobile number)</label><input id="uu" autocapitalize="none">
+  <label for="up">Password (min 6 characters)</label><input id="up">
+  <button class="btn" onclick="addUser()">Add user</button></div>
+  <div class="card"><h2>Reset all data</h2><p class="mute" style="margin:0">Deletes ALL players, fees, attendance, matches and any live match. User logins stay. This cannot be undone. Take a Full backup first (Reports tab).</p>
+  <label for="rs">Type RESET to confirm</label><input id="rs" autocapitalize="characters"><button class="btn red" onclick="resetAll()">Delete everything</button></div>`}
+async function resetAll(){
+  if(!isA()||busy)return;if($('#rs').value.trim()!=='RESET')return toast('Type RESET to confirm');
+  busy=true;
+  try{const mo=[...new Set(Object.keys(S.att).map(d=>d.slice(0,7)))];
+    await Promise.all([...S.players.map(p=>FB.del('players/'+p.id)),...S.matches.map(m=>FB.del('matches/'+m.id)),...mo.map(m=>FB.del('attendance/'+m)),FB.del('live/current')]);toast('All data deleted')}
+  catch(e){toast('Could not delete: '+(e.code||e.message))}
+  busy=false;render()}
+function resetPw(){if(!isA())return;FB.reset(ADMIN).then(()=>toast('Reset email sent to '+ADMIN)).catch(x=>toast(x.code||'Error'))}
+async function addUser(){
+  if(!isA()||busy)return;const id=$('#uu').value.trim(),n=$('#un').value.trim(),p=$('#up').value;
+  if(!id||p.length<6)return toast('Enter a login ID and a password (min 6 characters)');
+  const email=toEmail(id);if(email===ADMIN)return toast('This ID is not allowed');
+  busy=true;
+  try{const k=await FB.createUser(email,p);await FB.set('users/'+k,{uid:k,name:n||id,email,active:true});toast('User added')}
+  catch(e){toast(e.code==='auth/email-already-in-use'?'This login ID already exists. Enable it from the list or use another ID.':'Could not add user: '+(e.code||e.message))}
+  busy=false;render()}
+function toggleUser(k,active){if(!isA())return;const x=S.users.find(u=>u.uid===k);if(!x)return;FB.set('users/'+k,{uid:k,name:x.name,email:x.email,active})}
+
+/* ---------- reports (Excel / PDF) ---------- */
+let repMonth='';
+const slug=t=>String(t).replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'')||'team';
+const XL=['https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js','https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'];
+function loadXlsx(){
+  if(window.XLSX)return Promise.resolve(window.XLSX);if(loadXlsx.p)return loadXlsx.p;
+  loadXlsx.p=new Promise((res,rej)=>{let i=0;const next=()=>{if(i>=XL.length){loadXlsx.p=null;return rej(new Error('Excel library could not load. Check your internet.'))}
+    const sc=document.createElement('script');sc.src=XL[i++];sc.onload=()=>res(window.XLSX);sc.onerror=()=>{sc.remove();next()};document.head.appendChild(sc)};next()});
+  return loadXlsx.p}
+function repPlayers(){
+  if(!S.players.length)return null;
+  const rows=S.players.map(p=>{const g=paidOf(p),l=p.pay[p.pay.length-1];return [p.name,p.age,p.batch,p.fee,g,p.fee-g,l?fmt(l.d)+' ('+l.mode+')':'-']});
+  const T=S.players.reduce((a,p)=>[a[0]+p.fee,a[1]+paidOf(p)],[0,0]);rows.push(['TOTAL','','',T[0],T[1],T[0]-T[1],'']);
+  return {title:'Players & fees',file:'players-fees-'+iso(new Date()),sheets:[
+    {name:'Players & fees',head:['Name','Age','Batch','Total fee','Paid','Pending','Last payment'],rows},
+    {name:'Payments',head:['Player','Date','Amount','Mode'],rows:S.players.flatMap(p=>p.pay.map(x=>[p.name,fmt(x.d),x.amt,x.mode]))}]}}
+function repAtt(m){
+  if(!S.players.length)return null;
+  const [y,mo]=m.split('-').map(Number),n=new Date(y,mo,0).getDate(),days=[...Array(n)].map((_,i)=>m+'-'+String(i+1).padStart(2,'0'));
+  const rows=S.players.map(p=>{let pr=0,mk=0;const c=days.map(d=>{const v=(S.att[d]||{})[p.id];if(v===undefined)return '';mk++;if(v)pr++;return v?'P':'A'});return [p.name,...c,pr,mk,mk?Math.round(pr*100/mk)+'%':'-']});
+  return {title:'Attendance · '+m,file:'attendance-'+m,sheets:[{name:'Attendance '+m,head:['Player',...days.map((d,i)=>String(i+1)),'Present','Marked','%'],rows}]}}
+const scoreTxt=I=>{const x=st(I);return x.r+'/'+x.w+' ('+ov(x.b)+')'};
+function repMatches(){
+  if(!S.matches.length)return null;
+  return {title:'Match summary',file:'matches-'+iso(new Date()),sheets:[{name:'Matches',head:['Date','Team A','Team B','Overs','1st innings','2nd innings','Toss','Result'],
+    rows:S.matches.map(m=>[fmt(m.date),m.a,m.b,m.overs,m.inn[0].team+' '+scoreTxt(m.inn[0]),m.inn[1].team+' '+scoreTxt(m.inn[1]),m.toss||'-',m.res])}]}}
+function repMatch(m){
+  if(!m)return null;const N=m.names,sh=[];
+  m.inn.forEach((I,k)=>{
+    const s=st(I),ex={wd:0,nb:0,bye:0,lb:0},o=['1st','2nd'][k]+' innings';
+    I.log.forEach(e=>{if(e.t==='wd')ex.wd+=1+e.r;else if(e.t==='nb'){ex.nb++;if(e.x)ex[e.x]+=e.r}else if(e.t!=='n')ex[e.t]+=e.r});
+    const rows=I.used.map(id=>{const x=batOf(I,id);return [N[id],outTxt(x.out,N),x.r,x.b,x.f,x.s,x.b?(x.r*100/x.b).toFixed(1):'-']});
+    rows.push(['Extras','Wd '+ex.wd+' · Nb '+ex.nb+' · B '+ex.bye+' · Lb '+ex.lb,ex.wd+ex.nb+ex.bye+ex.lb,'','','','']);
+    rows.push(['Total',ov(s.b)+' overs',s.r+'/'+s.w,'','','','']);
+    sh.push({name:o+' batting',head:[I.team+' batting','How out','R','B','4','6','SR'],rows});
+    sh.push({name:o+' bowling',head:['Bowling ('+m.inn[1-k].team+')','O','M','R','W','Eco'],
+      rows:[...new Set(I.log.map(e=>e.bw))].map(id=>{const x=bowlOf(I,id);return [N[id],ov(x.b),x.m,x.r,x.w,x.b?(x.r*6/x.b).toFixed(2):'-']})})});
+  return {title:m.a+' vs '+m.b+' · '+fmt(m.date)+' · '+m.res,file:'scorecard-'+m.date+'-'+slug(m.a)+'-vs-'+slug(m.b),sheets:[{name:'Match info',head:['Item','Details'],rows:[['Match',m.a+' vs '+m.b],['Date',fmt(m.date)],['Overs',m.overs],['Toss',m.toss||'-'],['Result',m.res]]},...sh]}}
+function repAll(){
+  const sh=[],p=repPlayers();if(p)sh.push(...p.sheets);
+  const al=[];Object.keys(S.att).sort().forEach(d=>S.players.forEach(pl=>{const v=S.att[d][pl.id];if(v!==undefined)al.push([fmt(d),pl.name,v?'Present':'Absent'])}));
+  if(al.length)sh.push({name:'Attendance log',head:['Date','Player','Status'],rows:al});
+  const mm=repMatches();if(mm)sh.push(...mm.sheets);
+  return sh.length?{title:'Full backup',file:'shanti-backup-'+iso(new Date()),sheets:sh}:null}
+function repHtml(r){
+  const wide=r.sheets.some(x=>x.head.length>10);
+  return `<div class="tb"><button class="btn" onclick="window.print()">Print / Save as PDF</button> <button class="btn alt" onclick="closePrint()">Close</button>
+    <p class="mute">In the print window choose “Save as PDF”, then share the saved file from your phone.</p></div>
+    <h2 style="margin:12px 0 2px">SHANTI CRICKET STADIUM &amp; ACADEMY</h2><p style="margin:0 0 6px">${esc(r.title)} · ${fmt(iso(new Date()))}</p>
+    ${r.sheets.map(x=>`<h3 style="margin:14px 0 6px;font-size:14px">${esc(x.name)}</h3><div class="tw"><table class="${wide?'wide':''}"><tr>${x.head.map(h=>`<th>${esc(h)}</th>`).join('')}</tr>${x.rows.map(w=>`<tr>${w.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`).join('')}`}
+function closePrint(){$('#print').classList.remove('show')}
+async function toXlsx(r){
+  const X=await loadXlsx(),wb=X.utils.book_new();
+  r.sheets.forEach(x=>{const ws=X.utils.aoa_to_sheet([x.head,...x.rows]);
+    ws['!cols']=x.head.map((h,i)=>({wch:Math.min(34,Math.max(String(h).length,...x.rows.map(w=>String(w[i]??'').length))+2)}));
+    X.utils.book_append_sheet(wb,ws,x.name.replace(/[\\\/\?\*\[\]:]/g,' ').slice(0,31))});
+  return new Blob([X.write(wb,{bookType:'xlsx',type:'array'})],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+async function deliver(blob,name){
+  try{const f=new File([blob],name,{type:blob.type});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:name});return}catch(e){if(e&&e.name==='AbortError')return}}}catch(e){}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);toast('Downloaded: '+name)}
+async function doRep(kind,type){
+  if(!isA())return;let r;
+  if(kind==='players')r=repPlayers();
+  else if(kind==='att')r=repAtt($('#rm').value||iso(new Date()).slice(0,7));
+  else if(kind==='match'){const v=$('#rmatch').value;r=v==='all'?repMatches():repMatch(S.matches.find(m=>String(m.id)===v))}
+  else r=repAll();
+  if(!r)return toast('Nothing to export yet');
+  if(type==='pdf'){$('#print').innerHTML=repHtml(r);$('#print').classList.add('show');setTimeout(()=>window.print(),300);return}
+  try{toast('Preparing Excel…');await deliver(await toXlsx(r),r.file+'.xlsx')}catch(e){toast('Could not create Excel: '+(e.message||e))}}
+function vRep(){
+  const mo=repMonth||iso(new Date()).slice(0,7),b=k=>`<button class="btn" onclick="doRep('${k}','xlsx')">Excel</button> <button class="btn alt" onclick="doRep('${k}','pdf')">PDF</button>`;
+  return `<div class="card"><h2>Players &amp; fees</h2><p class="mute" style="margin:0">Fee status and payment history of every player.</p>${b('players')}</div>
+  <div class="card"><h2>Attendance</h2><label for="rm">Month</label><input type="month" id="rm" value="${mo}" onchange="repMonth=this.value">${b('att')}</div>
+  <div class="card"><h2>Match scorecard</h2><label for="rmatch">Match</label><select id="rmatch"><option value="all">All matches (summary)</option>${S.matches.map(m=>`<option value="${m.id}">${fmt(m.date)} · ${esc(m.a)} vs ${esc(m.b)}</option>`).join('')}</select>${b('match')}</div>
+  <div class="card"><h2>Full backup</h2><p class="mute" style="margin:0">One Excel file with players, payments, attendance and match summaries. Take a backup once a month.</p>
+  <button class="btn" onclick="doRep('all','xlsx')">Excel backup</button></div>
+  <p class="mute">Excel: opens the share menu on your phone (WhatsApp, Drive…) or downloads the file. PDF: choose “Save as PDF” in the print window.</p>`}
+
+/* ---------- tabs ---------- */
+const TABS=[['live','🔴 Live Match'],['matches','Match Records'],['att','Attendance'],['fee','Fees'],['pl','Players']];
+const tabsFor=()=>isA()?TABS.concat([['rep','Reports'],['set','Settings']]):TABS.slice(0,2);
+function render(){
+  if(!AUTH){$('#bar').innerHTML='';$('#nav').innerHTML='';$('#main').innerHTML=vLogin();return}
+  const T=tabsFor();if(!T.some(t=>t[0]===tab))tab=T[0][0];
+  $('#bar').innerHTML=`<div class="bar2"><span>Signed in: <b>${esc(AUTH.name)}</b> · ${isA()?'Admin':'User (view only)'}</span><button onclick="logout()">Logout</button></div>`;
+  $('#nav').innerHTML=T.map(t=>`<button onclick="go('${t[0]}')" ${tab===t[0]?'aria-current="true"':''}>${t[1]}</button>`).join('');
+  $('#main').innerHTML=({live:vLive,matches:vMatches,att:vAtt,fee:vFee,pl:vPl,rep:vRep,set:vSet})[tab]();
+  if(tab==='rep')loadXlsx().catch(()=>{});
+}
+function go(t){tab=t;render()}
+
+/* ---------- live match ---------- */
+const sel=(title,ids,fn,N)=>`<div class="card"><h2>${title}</h2><div class="chips">${ids.map(id=>`<button onclick="${fn}(${id})">${esc(N[id])}</button>`).join('')}</div></div>`;
+function vLive(){
+  const L=S.live,N=L?{...N0(),...L.names}:N0();
+  if(!L&&!isA())return '<div class="card"><h2>No live match right now</h2><p class="mute" style="margin:0">When a match starts, the live score and scorecard will appear here. Past games are in Match Records.</p></div>';
+  if(!L)return `<div class="card"><h2>New Live Match</h2>
+    <div class="g2"><div><label for="ta">Team A name</label><input id="ta" value="Royals" oninput="syncToss()"></div><div><label for="tb">Team B name</label><input id="tb" value="Tigers" oninput="syncToss()"></div></div>
+    <label for="ov">Overs</label><select id="ov"><option>3</option><option selected>5</option><option>10</option><option>20</option></select>
+    <div class="g2"><div><label for="tw">Toss won by</label><select id="tw"><option value="a">Royals</option><option value="b">Tigers</option></select></div>
+    <div><label for="te">Chose to</label><select id="te"><option value="bat">Bat first</option><option value="bowl">Bowl first</option></select></div></div>
+    <h2 style="margin-top:16px">Select players</h2>
+    ${S.players.map((p,i)=>{const c=career(p.id);return `<div class="row"><div>${esc(p.name)}<br><small>${c.m} matches · ${c.r} runs · ${c.w} wickets</small></div>
+      <select class="tm" data-id="${p.id}" style="width:auto"><option value="a" ${i%2?'':'selected'}>Team A</option><option value="b" ${i%2?'selected':''}>Team B</option><option value="x">Not playing</option></select></div>`}).join('')}
+    <h2 style="margin-top:16px">Outside / guest players</h2>
+    <p class="mute" style="margin:0 0 6px">Playing against another team? Type their players here, one name per line. Guests are used only for this match scorecard.</p>
+    <div class="g2"><div><label for="ga">Team A guests</label><textarea id="ga" rows="6"></textarea></div><div><label for="gb">Team B guests</label><textarea id="gb" rows="6"></textarea></div></div>
+    <button class="btn" onclick="startMatch()">Start match</button></div>`;
+  const i=L.cur,I=L.inn[i],s=st(I),done=ended(L,i),o=L.inn[0];
+  let lc=0,start=0;I.log.forEach((e,k)=>{if(legal(e)){lc++;if(lc%6===0)start=k+1}});
+  const chips=I.log.slice(start).map(e=>`<span class="${e.w?'w':''}">${e.w?'W':e.t==='n'?e.r:e.t==='wd'?'Wd':e.t==='nb'?'Nb':e.t==='bye'?'B':'Lb'}${!e.w&&e.t!=='n'&&e.r?'+'+e.r:''}</span>`).join('');
+  let line='Run rate '+(s.b?(s.r*6/s.b).toFixed(2):'0.00');
+  if(i===1){const need=st(o).r+1-s.r;line=need>0?`Need ${need} runs from ${L.overs*6-s.b} balls`:'Target achieved'}
+  const pl=id=>{if(id===null)return '<div><span>—</span></div>';const x=batOf(I,id);return `<div><span>${id===I.s?'▸ ':''}${esc(N[id])}</span><b>${x.r} (${x.b}) · 4×${x.f} 6×${x.s}</b></div>`};
+  const bl=I.bw===null?'<div><span>Bowler: —</span></div>':(x=>`<div><span>Bowler: ${esc(N[I.bw])}</span><b>${ov(x.b)}-${x.m}-${x.r}-${x.w} <small>O-M-R-W</small></b></div>`)(bowlOf(I,I.bw));
+  let ctl='';
+  if(done){ctl=`<div class="card">${i===0?`<p><b>${esc(I.team)}: ${s.r}/${s.w}</b> — 1st innings over. Target ${s.r+1}</p><button class="btn" onclick="nextInn()">Start 2nd innings</button>`:`<p><b>${esc(result(o,I))}</b></p><button class="btn" onclick="finish()">Save match</button>`}</div>`}
+  else if(I.s===null||I.n===null)ctl=sel(I.s===null?'Select striker':'Select non-striker',I.bat.filter(id=>!I.used.includes(id)),'pb',N);
+  else if(I.bw===null){let b=I.bowl;const last=I.log.length?I.log[I.log.length-1].bw:null;if(b.length>1)b=b.filter(id=>id!==last);ctl=sel('Select next bowler',b,'pw',N)}
+  else if(L.wk){const w=L.wk;ctl=`<div class="card"><h2>How was the batter out?</h2><div class="chips">${ALLOW[L.mode].map(h=>`<button class="${w.how===h?'on':''}" onclick="wkHow('${h}')">${HOW[h]}</button>`).join('')}</div>
+    ${w.how==='runout'?`<label>Run out at which end?</label><div class="chips">${[['s','Striker’s end'],['b','Bowler’s end']].map(x=>`<button class="${w.end===x[0]?'on':''}" onclick="wkEnd('${x[0]}')">${x[1]}</button>`).join('')}</div><label>Who is out</label><div class="chips">${[I.s,I.n].map(id=>`<button class="${w.out===id?'on':''}" onclick="wkOut(${id})">${esc(N[id])}</button>`).join('')}</div>
+    <label>Runs completed before the dismissal</label><div class="chips">${[0,1,2,3].map(r=>`<button class="${w.r===r?'on':''}" onclick="wkRuns(${r})">${r}</button>`).join('')}</div>`:''}
+    <button class="btn" ${w.how&&(w.how!=='runout'||w.end)?'':'disabled'} onclick="wkOk()">Record wicket</button> <button class="btn alt" onclick="wkNo()">Cancel</button></div>`}
+  else ctl=`<div class="card"><div class="chips" style="margin-bottom:10px">${MODES.map(m=>`<button class="${L.mode===m[0]?'on':''}" onclick="mode('${m[0]}')">${m[1]}</button>`).join('')}</div>
+    ${HINT[L.mode]?`<p class="mute" style="margin:0 0 8px">${HINT[L.mode]}</p>`:''}
+    ${L.mode==='nb'?`<div class="chips" style="margin-bottom:10px">${[['bat','Runs off bat'],['bye','Byes'],['lb','Leg byes']].map(x=>`<button class="${(L.nbx||'bat')===x[0]?'on':''}" onclick="nbx('${x[0]}')">${x[1]}</button>`).join('')}</div>`:''}
+    <div class="pad c3">${[0,1,2,3,4,6].map(n=>`<button class="${n>3?'f':''}" onclick="run(${n})">${n}</button>`).join('')}
+    <button class="x" onclick="wkOpen()">Out</button><button onclick="undo()" ${I.log.length?'':'disabled'}>↩︎ Undo</button><button class="x" onclick="endInn()">End innings</button></div></div>`;
+  if(!isA())ctl='';
+  const xu=(!isA()||!I.log.length||L.wk||ctl.includes('class="pad c3"'))?'':'<button class="btn alt" style="margin:0 0 12px" onclick="undo()">↩︎ Undo last ball</button>';
+  return `<div class="board"><div class="t">${esc(I.team)} batting · Innings ${i+1}</div><div class="big">${s.r}/${s.w}</div>
+    <div class="meta"><span>Overs ${ov(s.b)} / ${L.overs}</span><span>${line}</span></div>
+    ${L.toss?`<div class="meta" style="margin-top:6px;opacity:.85"><span>Toss: ${esc(L.toss)}</span></div>`:''}<div class="pl">${pl(I.s)}${pl(I.n)}${bl}</div><div class="balls" aria-label="Balls this over">${chips}</div></div>
+    ${ctl}${xu}
+    ${i===1?`<details class="card"><summary><b>1st innings: ${esc(o.team)} ${st(o).r}/${st(o).w}</b></summary>${card(o,N)}</details>`:''}
+    <div class="card"><h2>${esc(I.team)} — Scorecard</h2>${card(I,N)}</div>
+    ${isA()?'<button class="btn alt" onclick="abort()">Cancel match</button>':''}`;
+}
+const cu=()=>S.live.inn[S.live.cur];
+function syncToss(){const t=$('#tw');if(!t||!t.options)return;t.options[0].text=$('#ta').value.trim()||'Team A';t.options[1].text=$('#tb').value.trim()||'Team B'}
+function startMatch(){
+  const A=[],B=[];document.querySelectorAll('.tm').forEach(e=>{if(e.value==='a')A.push(+e.dataset.id);if(e.value==='b')B.push(+e.dataset.id)});
+  const names={...N0()};const gp=(id,arr)=>($(id).value||'').split('\n').map(x=>x.trim()).filter(Boolean).forEach(n=>{const k=uid();names[k]=n;arr.push(k)});gp('#ga',A);gp('#gb',B);
+  if(A.length<2||B.length<2)return toast('Each team needs at least 2 players');
+  const a=$('#ta').value.trim()||'Team A',b=$('#tb').value.trim()||'Team B';
+  const tw=$('#tw').value,te=$('#te').value,aFirst=(tw==='a')===(te==='bat'),toss=(tw==='a'?a:b)+' won the toss and chose to '+(te==='bat'?'bat':'bowl')+' first';
+  S.live={a,b,overs:+$('#ov').value,cur:0,mode:'n',wk:null,names,toss,inn:aFirst?[newInn(a,A,B),newInn(b,B,A)]:[newInn(b,B,A),newInn(a,A,B)]};save();render()}
+function nbx(v){S.live.nbx=v;save();render()}
+function mode(m){S.live.mode=m;S.live.nbx='bat';save();render()}
+function run(r){const L=S.live;push(cu(),{t:L.mode,r,x:L.mode==='nb'&&L.nbx&&L.nbx!=='bat'?L.nbx:undefined});L.mode='n';L.nbx='bat';save();render()}
+function pb(id){pickBat(cu(),id);save();render()}
+function pw(id){cu().bw=id;save();render()}
+function undo(){undoE(cu());save();render()}
+function endInn(){cu().done=true;save();render()}
+function nextInn(){S.live.cur=1;S.live.mode='n';save();render()}
+function abort(){S.live=null;save();render()}
+function wkOpen(){S.live.wk={how:null,out:cu().s,r:0};render()}
+function wkEnd(x){S.live.wk.end=x;render()}
+function wkHow(h){const w=S.live.wk;w.how=h;w.end=null;if(h!=='runout'){w.out=cu().s;w.r=0}render()}
+function wkOut(id){S.live.wk.out=id;render()}
+function wkRuns(r){S.live.wk.r=r;render()}
+function wkNo(){S.live.wk=null;render()}
+function wkOk(){const L=S.live,w=L.wk;push(cu(),{t:L.mode,r:w.r,x:L.mode==='nb'&&L.nbx&&L.nbx!=='bat'?L.nbx:undefined,w:{how:w.how,out:w.out,end:w.how==='runout'?w.end:undefined}});L.wk=null;L.mode='n';L.nbx='bat';save();render()}
+function finish(){const L=S.live,inn=JSON.parse(JSON.stringify(L.inn));inn.forEach(I=>I.log.forEach(e=>{delete e.pre}));
+  const id=uid(),m={id,date:iso(new Date()),a:L.a,b:L.b,overs:L.overs,toss:L.toss||'',names:{...N0(),...L.names},inn,res:result(L.inn[0],L.inn[1])};
+  FB.set('matches/'+id,m);S.live=null;save();tab='matches';render();toast('Match saved to records')}
+
+/* ---------- match records ---------- */
+function best(m){let bt=null,bo=null;
+  m.inn.forEach(I=>{I.used.forEach(id=>{const x=batOf(I,id);if(!bt||x.r>bt.r)bt={id,r:x.r,b:x.b}});
+    I.bowl.forEach(id=>{const x=bowlOf(I,id);if(x.b&&(!bo||x.w>bo.w||(x.w===bo.w&&x.r<bo.r)))bo={id,w:x.w,r:x.r}})});
+  return bt&&bo?`<p class="mute">Top scorer: <b>${esc(m.names[bt.id])}</b> ${bt.r} (${bt.b}) · Best bowler: <b>${esc(m.names[bo.id])}</b> ${bo.w}/${bo.r}</p>`:''}
+function delMatch(id){const m=S.matches.find(x=>x.id===id);if(!isA()||!m||!confirm('Delete the match '+m.a+' vs '+m.b+' ('+fmt(m.date)+')? This cannot be undone.'))return;FB.del('matches/'+id);toast('Match deleted')}
+function vMatches(){
+  const t=S.matches.reduce((a,m)=>a+st(m.inn[0]).r+st(m.inn[1]).r,0),n=S.matches.length;
+  return `<div class="stats"><div><b>${n}</b><small>Total matches</small></div><div><b>${t}</b><small>Total runs</small></div><div><b>${n?Math.round(t/(n*2)):0}</b><small>Avg innings score</small></div></div>`+
+  (n?S.matches.map(m=>`<details class="card"><summary><div class="row" style="border:0;padding:0"><b>${esc(m.a)} vs ${esc(m.b)}</b><small>${fmt(m.date)} · ${m.overs} overs</small></div>
+    ${m.inn.map(I=>{const x=st(I);return `<div class="row"><span>${esc(I.team)}</span><b>${x.r}/${x.w} <small>(${ov(x.b)})</small></b></div>`}).join('')}
+    <p class="ok" style="margin:6px 0 0"><b>${esc(m.res)}</b> <small class="mute">· Tap for full scorecard</small></p></summary>
+    ${m.toss?`<p class="mute" style="margin:0 0 4px">Toss: ${esc(m.toss)}</p>`:''}${best(m)}${m.inn.map(I=>`<h2 style="margin:14px 0 6px">${esc(I.team)}</h2>${card(I,m.names)}`).join('')}${isA()?`<button class="btn red" onclick="delMatch(${m.id})">Delete this match</button>`:''}</details>`).join(''):'<p class="mute">No matches yet. Start one from “Live Match”.</p>');
+}
+
+/* ---------- attendance ---------- */
+function vAtt(){
+  const day=S.att[attDate]||{};const n=S.players.filter(p=>day[p.id]).length;
+  return `<div class="card"><label for="ad">Date</label><input type="date" id="ad" value="${attDate}" max="${iso(new Date())}" onchange="attDate=this.value;render()">
+    <p class="mute" style="margin:10px 0 0">Present: <b>${n}</b> / ${S.players.length}</p>
+    <p class="mute" style="margin:4px 0 0">Tap a selected button again to remove the mark.</p><button class="lnk bad" onclick="clearDay()">Clear this day</button></div>
+  <div class="card">${S.players.map(p=>{const v=day[p.id];return `<div class="row"><div>${esc(p.name)}<br><small>${p.batch} batch</small></div>
+    <div class="seg"><button class="p ${v===true?'on':''}" onclick="mark(${p.id},true)">Present</button>
+    <button class="a ${v===false?'on':''}" onclick="mark(${p.id},false)">Absent</button></div></div>`}).join('')}</div>`;
+}
+const monthDays=(m,skip)=>{const o={};Object.keys(S.att).forEach(d=>{if(d.startsWith(m)&&!skip(d))o[d]=S.att[d]});return o};
+function mark(id,v){const d=attDate,m=d.slice(0,7);
+  if((S.att[d]||{})[id]===v){const day={...S.att[d]};delete day[id];const days=monthDays(m,x=>x===d);if(Object.keys(day).length)days[d]=day;FB.set('attendance/'+m,{days},false);return}
+  FB.set('attendance/'+m,{days:{[d]:{[id]:v}}},true)}
+function clearDay(){if(!isA()||!confirm('Clear all attendance marks for '+fmt(attDate)+'?'))return;const m=attDate.slice(0,7);FB.set('attendance/'+m,{days:monthDays(m,x=>x===attDate)},false);toast('Day cleared')}
+
+/* ---------- fees ---------- */
+function vFee(){
+  const tot=S.players.reduce((a,p)=>a+p.fee,0),got=S.players.reduce((a,p)=>a+paidOf(p),0);
+  return `<div class="stats"><div><b>${inr(tot)}</b><small>Total fees</small></div><div><b class="ok">${inr(got)}</b><small>Collected</small></div><div><b class="bad">${inr(Math.max(0,tot-got))}</b><small>Pending</small></div></div>
+  <div class="card"><h2>Collect fee</h2><label for="fp">Player</label>
+    <select id="fp">${S.players.filter(p=>p.fee>paidOf(p)).map(p=>`<option value="${p.id}">${esc(p.name)} (pending ${inr(p.fee-paidOf(p))})</option>`).join('')}</select>
+    <div class="g2"><div><label for="fa">Amount (₹)</label><input id="fa" type="number" inputmode="numeric" min="1"></div>
+    <div><label for="fm">Mode</label><select id="fm"><option>Cash</option><option>UPI</option><option>Bank</option></select></div></div>
+    <button class="btn" onclick="addPay()">Save receipt</button></div>
+  <div class="card">${S.players.map(p=>{const g=paidOf(p),pc=p.fee?Math.min(100,Math.round(g*100/p.fee)):0,last=p.pay[p.pay.length-1];
+    return `<div class="row" style="display:block"><div style="display:flex;justify-content:space-between;gap:8px"><span>${esc(p.name)}</span>
+    <span class="badge ${g>=p.fee?'ok':g?'warn':'bad'}">${g>=p.fee?'Paid':g?'Partial':'Pending'}</span></div>
+    <small>${inr(g)} / ${inr(p.fee)}${last?' · Last: '+fmt(last.d)+' ('+last.mode+')':''}</small><div class="bar"><i style="width:${pc}%"></i></div>
+    ${p.pay.length?`<details><summary class="lnk">Payments (${p.pay.length})</summary>${p.pay.map((x,i)=>`<div class="payrow"><span>${fmt(x.d)} · ${inr(x.amt)} · ${esc(x.mode)}</span><button class="lnk bad" onclick="delPay(${p.id},${i})">Remove</button></div>`).join('')}</details>`:''}</div>`}).join('')}</div>`;
+}
+function delPay(id,i){const p=S.players.find(x=>x.id===id);if(!isA()||!p||!p.pay[i])return;const x=p.pay[i];
+  if(!confirm('Remove the payment of '+inr(x.amt)+' on '+fmt(x.d)+'?'))return;FB.set('players/'+id,{...p,pay:p.pay.filter((_,k)=>k!==i)});toast('Payment removed')}
+function addPay(){
+  const p=S.players.find(x=>x.id==$('#fp').value);if(!p)return toast('All fees are paid');
+  let a=Math.floor(+$('#fa').value);if(!(a>0))return toast('Enter a valid amount');
+  a=Math.min(a,p.fee-paidOf(p));FB.set('players/'+p.id,{...p,pay:p.pay.concat([{d:iso(new Date()),amt:a,mode:$('#fm').value}])});toast(inr(a)+' received')}
+
+/* ---------- players ---------- */
+let editId=null;
+function vPl(){
+  return `<div class="card"><h2>Add new player</h2>
+    <label for="pn">Name</label><input id="pn">
+    <div class="g2"><div><label for="pa">Age</label><input id="pa" type="number" inputmode="numeric"></div>
+    <div><label for="pb">Batch</label><select id="pb"><option>Morning</option><option>Evening</option></select></div></div>
+    <label for="pf">Admission fee (₹)</label><input id="pf" type="number" inputmode="numeric" value="6000">
+    <button class="btn" onclick="addPl()">Add</button></div>
+  <div class="card">${S.players.map(p=>{
+    if(p.id===editId)return `<div class="row" style="display:block"><b>Edit player</b><label for="en">Name</label><input id="en" value="${esc(p.name)}">
+      <div class="g2"><div><label for="ea">Age</label><input id="ea" type="number" inputmode="numeric" value="${p.age}"></div>
+      <div><label for="eb">Batch</label><select id="eb"><option ${p.batch==='Morning'?'selected':''}>Morning</option><option ${p.batch==='Evening'?'selected':''}>Evening</option></select></div></div>
+      <label for="ef">Admission fee (₹) · paid so far ${inr(paidOf(p))}</label><input id="ef" type="number" inputmode="numeric" value="${p.fee}">
+      <button class="btn" onclick="savePl()">Save</button> <button class="btn alt" onclick="cancelEdit()">Cancel</button> <button class="btn red" onclick="delPl(${p.id})">Delete player</button></div>`;
+    const a=attPct(p),c=career(p.id);return `<div class="row"><div>${esc(p.name)}<br><small>${p.age} yrs · ${p.batch} batch</small><br><small>${c.m} matches · ${c.r} runs (best ${c.hs}) · ${c.w} wickets</small><br><button class="lnk" onclick="editPl(${p.id})">Edit / Delete</button></div>
+    <div style="text-align:right"><b class="${a===null?'':a>=75?'ok':'bad'}">${a===null?'—':a+'%'}</b><br><small>Attendance</small></div></div>`}).join('')}</div>`;
+}
+function editPl(id){editId=id;render()}
+function cancelEdit(){editId=null;render()}
+function savePl(){const p=S.players.find(x=>x.id===editId);if(!isA()||!p)return;const n=$('#en').value.trim(),f=+$('#ef').value||0;
+  if(!n)return toast('Enter a name');if(f<paidOf(p))return toast('Fee cannot be less than '+inr(paidOf(p))+' already paid');
+  FB.set('players/'+p.id,{...p,name:n,age:+$('#ea').value||0,batch:$('#eb').value,fee:f});editId=null;render();toast('Player updated')}
+function delPl(id){const p=S.players.find(x=>x.id===id);if(!isA()||!p||!confirm('Delete '+p.name+'? Their fee and payment records will be deleted too. This cannot be undone.'))return;
+  FB.del('players/'+id);editId=null;render();toast('Player deleted')}
+function addPl(){
+  const n=$('#pn').value.trim();if(!n)return toast('Enter a name');const id=uid();
+  FB.set('players/'+id,{id,name:n,age:+$('#pa').value||0,batch:$('#pb').value,fee:+$('#pf').value||0,pay:[]});toast('Player added')}
+
+
+render();
+if(typeof navigator!=='undefined'&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+function boot(){FB.onAuth(onAuth)}
+if(window.FB)boot();else window.addEventListener('fbready',boot);
+setTimeout(()=>{if(!window.FB&&!AUTH){fbFail=true;render()}},10000);
+window.addEventListener('fberror',()=>{fbFail=true;render()});
+</script>
+</body>
+</html>
